@@ -15,7 +15,7 @@ use Claroline\CoreBundle\Entity\IndexableInterface;
 use Claroline\CoreBundle\Entity\IndexableTrait;
 
 /**
- * extend this class to make your entity
+ * extend this class to make your entity indexable
  *
  */
 
