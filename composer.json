@@ -64,5 +64,4 @@
         "psr-0": { "Claroline\\CoreBundle": "" }
     },
     "target-dir": "Claroline/CoreBundle"
-
 }
