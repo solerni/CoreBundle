@@ -67,7 +67,7 @@
     "target-dir": "Claroline/CoreBundle",
     "extra": {
         "branch-alias": {
-            "dev-master": "~2.8"
+            "dev-master": "2.9.x-dev"
         }
     }
 }
