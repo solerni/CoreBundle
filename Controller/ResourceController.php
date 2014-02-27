@@ -33,6 +33,7 @@ use Claroline\CoreBundle\Manager\LogManager;
 use Claroline\CoreBundle\Event\StrictDispatcher;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration as EXT;
 use JMS\DiExtraBundle\Annotation as DI;
+use Doctrine\ORM\EntityManager;
 
 class ResourceController
 {
@@ -58,7 +59,8 @@ class ResourceController
      *     "request"         = @DI\Inject("request"),
      *     "dispatcher"      = @DI\Inject("claroline.event.event_dispatcher"),
      *     "templating"      = @DI\Inject("templating"),
-     *     "logManager"      = @DI\Inject("claroline.log.manager")
+     *     "logManager"      = @DI\Inject("claroline.log.manager"),
+     *     "entityManager"   = @DI\Inject("doctrine.orm.entity_manager")
      * })
      */
     public function __construct
@@ -72,7 +74,8 @@ class ResourceController
         StrictDispatcher $dispatcher,
         MaskManager $maskManager,
         TwigEngine $templating,
-        LogManager $logManager
+        LogManager $logManager,
+        EntityManager $entityManager
     )
     {
         $this->sc = $sc;
@@ -85,6 +88,7 @@ class ResourceController
         $this->maskManager = $maskManager;
         $this->templating = $templating;
         $this->logManager = $logManager;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -747,6 +751,8 @@ class ResourceController
      */
     public function embedResource(ResourceNode $node, $type, $extension, $view = 'default')
     {
+        $entity = null;
+        
         switch ($type) {
             case 'video':
                 $view = 'video';
@@ -757,12 +763,17 @@ class ResourceController
             case 'image':
                 $view = 'image';
                 break;
+            case 'custom':
+                $entity = $this->entityManager
+                               ->getRepository('OrangeExternVideoBundle:Video')
+                               ->findOneByResourceNode($node);
+                $view = 'custom';
         }
 
         return new Response(
             $this->templating->render(
                 "ClarolineCoreBundle:Resource:embed/$view.html.twig",
-                array('node' => $node, 'type' => $type, 'extension' => $extension)
+                array('node' => $node, 'type' => $type, 'extension' => $extension, 'entity' => $entity)
             )
         );
     }
