@@ -50,7 +50,16 @@ class BaseProfileType extends AbstractType
                     'data' => $content->getContent()
                 )
             )
-            ->add('accepted_terms', 'checkbox', array('label' => 'I accept the terms of service'));
+            ->add('accepted_terms', 'checkbox', array('label' => 'I accept the terms of service'))
+            ->add(
+               'com_terms_of_service', 
+               'checkbox', 
+               array(
+                    'mapped' => false, 
+                    'label' => 'I agree that my personal information be used for commercial purposes',
+                    'required' => false
+               )
+             );
         }
     }
 

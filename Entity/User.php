@@ -262,7 +262,12 @@ class User extends AbstractRoleSubject implements Serializable, AdvancedUserInte
      * @ORM\Column(name="last_uri", length=255, nullable=true)
      */
     protected $lastUri;
-
+    
+    /**
+     * @ORM\Column(name="has_accepted_com_terms", type="boolean", nullable=true)
+     */
+    protected $hasAcceptedComTerms;
+    
     public function __construct()
     {
         parent::__construct();
@@ -863,5 +868,15 @@ class User extends AbstractRoleSubject implements Serializable, AdvancedUserInte
     public function getLastUri()
     {
         return $this->lastUri;
+    }
+    
+    public function hasAcceptedComTerms()
+    {
+        return $this->hasAcceptedComTerms;
+    }
+
+    public function setAcceptedComTerms($boolean)
+    {
+        $this->hasAcceptedComTerms = $boolean;
     }
 }

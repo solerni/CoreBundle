@@ -153,9 +153,11 @@ class AuthenticationSuccessListener implements AuthenticationSuccessHandlerInter
             $user = $this->getUser($event->getRequest()) and
             $content = $this->termsOfService->getTermsOfService(false)) {
             if ($termsOfService = $event->getRequest()->get('accept_terms_of_service_form') and
-                isset($termsOfService['terms_of_service'])
+                isset($termsOfService['terms_of_service']) and
+                isset($termsOfService['com_terms_of_service'])
             ) {
                 $user->setAcceptedTerms(true);
+                $user->setAcceptedComTerms($termsOfService['com_terms_of_service']);
                 $this->manager->persist($user);
                 $this->manager->flush();
             } else {
@@ -186,7 +188,8 @@ class AuthenticationSuccessListener implements AuthenticationSuccessHandlerInter
             $token = $this->securityContext->getToken() and
             $user = $token->getUser() and
             $user instanceof User and
-            !$user->hasAcceptedTerms()
+            !$user->hasAcceptedTerms() and
+            !$user->hasAcceptedComTerms()
         ) {
             return $user;
         }
