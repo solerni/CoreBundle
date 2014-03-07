@@ -52,10 +52,9 @@ class BaseProfileType extends AbstractType
             )
             ->add('accepted_terms', 'checkbox', array('label' => 'I accept the terms of service'))
             ->add(
-               'com_terms_of_service', 
+               'accepted_com_terms', 
                'checkbox', 
                array(
-                    'mapped' => false, 
                     'label' => 'I agree that my personal information be used for commercial purposes',
                     'required' => false
                )

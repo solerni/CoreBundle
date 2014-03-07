@@ -71,7 +71,14 @@ class ProfileType extends AbstractType
                                     ->andWhere("r.name != 'ROLE_ANONYMOUS'");
                         }
                     )
-                );
+                )
+                ->add(
+                    'accepted_com_terms', 
+                    'checkbox', 
+                    array(
+                        'label' => 'I agree that my personal information be used for commercial purposes',
+                        'required' => false
+                ));
         } else {
             $builder->add('firstName', 'text')
                 ->add('lastName', 'text')
