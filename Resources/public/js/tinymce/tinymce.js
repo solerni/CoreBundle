@@ -10,6 +10,15 @@
 (function () {
     'use strict';
 
+    /*
+     * Add trim() methode to ie8
+     */
+    if(typeof String.prototype.trim !== 'function') {
+        String.prototype.trim = function() {
+            return this.replace(/^\s+|\s+$/g, ''); 
+        }
+    }
+
     var tinymce = window.tinymce;
     var home = window.Claroline.Home;
     var translator = window.Translator;
