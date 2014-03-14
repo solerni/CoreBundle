@@ -764,10 +764,16 @@ class ResourceController
                 $view = 'image';
                 break;
             case 'custom':
-                $entity = $this->entityManager
-                               ->getRepository('OrangeExternVideoBundle:Video')
-                               ->findOneByResourceNode($node);
-                $view = 'custom';
+                switch ($extension) { 
+                    case 'orange_extern_video':
+                        $entity = $this->entityManager
+                                        ->getRepository('OrangeExternVideoBundle:Video')
+                                        ->findOneByResourceNode($node);
+                        $view = 'custom_'.$extension;
+                        break;
+                }
+
+                break;
         }
 
         return new Response(
