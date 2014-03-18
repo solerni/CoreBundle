@@ -40,6 +40,7 @@
         "twbs/bootstrap": "3.0.0",
         "fortawesome/font-awesome": "~3.2.1",
         "zenstruck/form-bundle": "dev-master",
+        "zendframework/zend-crypt": "~2.0,!=2.1.1",
         "besimple/sso-auth-bundle": "*",
         "composer/composer": "dev-master",
         "willdurand/js-translation-bundle": "~1.2",
@@ -54,7 +55,8 @@
         "claroline/installation-bundle": "~3.1",
         "claroline/front-end-bundle": ">=1.0.10,<2.0",
         "claroline/migration-bundle": "~1.0",
-        "icap/notification-bundle": "~1.0"
+        "icap/notification-bundle": "~1.0",
+        "johngrogg/ics-parser": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "dev-master@dev",
