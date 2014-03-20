@@ -323,14 +323,17 @@ class RoleManager
             $entityRoles[$name] = $role;
         }
 
-        $role = $this->createWorkspaceRole(
-            "ROLE_WS_MANAGER_{$workspace->getGuid()}",
-            'manager',
-            $workspace,
-            true
-        );
+	if (!isset($entityRoles['ROLE_WS_MANAGER'])) {
+            $role = $this->createWorkspaceRole(
+                "ROLE_WS_MANAGER_{$workspace->getGuid()}",
+                'manager',
+                $workspace,
+                true
+            );
 
-        $entityRoles['ROLE_WS_MANAGER'] = $role;
+            $entityRoles['ROLE_WS_MANAGER'] = $role;
+        }
+
         $this->om->endFlushSuite();
 
         return $entityRoles;
