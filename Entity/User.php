@@ -266,7 +266,7 @@ class User extends AbstractRoleSubject implements Serializable, AdvancedUserInte
     /**
      * @ORM\Column(name="has_accepted_com_terms", type="boolean", nullable=true)
      */
-    protected $hasAcceptedComTerms;
+    protected $hasAcceptedComTerms = false;
     
     public function __construct()
     {
