@@ -17,6 +17,7 @@ use JMS\DiExtraBundle\Annotation\InjectParams;
 use JMS\DiExtraBundle\Annotation\Observe;
 use JMS\DiExtraBundle\Annotation\Service;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * @Service
@@ -28,12 +29,20 @@ class LocaleSetter
     private $localeManager;
     /**
      * @InjectParams({
-     *     "localeManager"  = @Inject("claroline.common.locale_manager")
+     *     "localeManager"   = @Inject("claroline.common.locale_manager"),
+     *     "securityContext" = @Inject("security.context"),
+     *     "configHandler"   = @Inject("claroline.config.platform_config_handler")
      * })
      */
-    public function __construct(LocaleManager $localeManager)
-    {
+    public function __construct(
+        LocaleManager $localeManager, 
+        SecurityContextInterface $securityContext, 
+        \Claroline\CoreBundle\Library\Configuration\PlatformConfigurationHandler $configHandler
+    ) {
         $this->localeManager = $localeManager;
+        $this->securityContext = $securityContext;
+        $this->configHandler = $configHandler;
+        
     }
 
     /**
@@ -46,7 +55,15 @@ class LocaleSetter
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        $locale = $this->localeManager->getUserLocale($request);
+
+        //if (!$this->securityContext->getToken() || 
+        //    $this->securityContext->getToken()->getUser() === 'anon.') {
+            
+            $locale = $this->configHandler->getParameter('locale_language');
+        //} else {
+            //$locale = $this->localeManager->getUserLocale($request);
+        //}
+
         $request->setLocale($locale);
     }
 }

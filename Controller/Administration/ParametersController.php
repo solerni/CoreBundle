@@ -126,12 +126,12 @@ class ParametersController extends Controller
     {
         $description = $this->contentManager->getTranslatedContent(array('type' => 'platformDescription'));
         $platformConfig = $this->configHandler->getPlatformConfig();
+        
         $role = $this->roleManager->getRoleByName($platformConfig->getDefaultRole());
         $form = $this->formFactory->create(
             new AdminForm\GeneralType($this->localeManager->getAvailableLocales(), $role, $description),
             $platformConfig
         );
-
         return array(
             'form_settings' => $form->createView(),
             'logos' => $this->get('claroline.common.logo_service')->listLogos()
