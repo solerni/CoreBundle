@@ -64,7 +64,7 @@ class WorkspaceVoter implements VoterInterface
             }
 
             //THIS SECTION SHOULD BE REMOVED
-            /*
+            
             //if there is no attribute (ie $this->sc->isGranted($workspace))
             if (count($attributes) === 0) {
                 $roles = $this->ut->getRoles($token);
@@ -73,7 +73,7 @@ class WorkspaceVoter implements VoterInterface
                     ->findWorkspaceByWorkspaceAndRoles($object, $roles);
 
                 return (count($ws) === 0) ? VoterInterface::ACCESS_DENIED: VoterInterface::ACCESS_GRANTED;
-            }*/
+            }
 
             //otherwise we check if we can open the tool specified in the $attributes array
             return ($this->canDo($object, $token, $attributes[0])) ?
