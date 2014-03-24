@@ -56,13 +56,13 @@ class LocaleSetter
     {
         $request = $event->getRequest();
 
-        //if (!$this->securityContext->getToken() || 
-        //    $this->securityContext->getToken()->getUser() === 'anon.') {
+        if (!$this->securityContext->getToken() || 
+            $this->securityContext->getToken()->getUser() === 'anon.') {
             
             $locale = $this->configHandler->getParameter('locale_language');
-        //} else {
-            //$locale = $this->localeManager->getUserLocale($request);
-        //}
+        } else {
+            $locale = $this->localeManager->getUserLocale($request);
+        }
 
         $request->setLocale($locale);
     }
