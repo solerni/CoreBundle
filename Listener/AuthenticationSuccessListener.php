@@ -148,7 +148,7 @@ class AuthenticationSuccessListener implements AuthenticationSuccessHandlerInter
     }
 
     private function showTermOfServices(GetResponseEvent $event)
-    {
+    {      
         if ($event->isMasterRequest() and
             $user = $this->getUser($event->getRequest()) and
             !$user->hasAcceptedTerms() and
@@ -204,7 +204,10 @@ class AuthenticationSuccessListener implements AuthenticationSuccessHandlerInter
         return array(
             'bazinga_exposetranslation_js',
             'login_check',
-            'login'
+            'login',
+            'orange_cms_api_user',
+            'orange_cms_api_route',
+            'orange_cms_api_moocs'
         );
     }
 
