@@ -96,7 +96,7 @@ class UsersController extends Controller
      * @EXT\Route("/new", name="claro_admin_user_creation_form")
      * @EXT\Method("GET")
      * @EXT\ParamConverter("currentUser", options={"authenticatedUser" = true})
-     * @EXT\Template
+     * @EXT\Template("ClarolineCoreBundle:Administration/Users:userCreationForm.html.twig")
      *
      * Displays the user creation form.
      *
