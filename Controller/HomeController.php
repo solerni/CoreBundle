@@ -22,6 +22,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @TODO doc
@@ -40,16 +43,18 @@ class HomeController
      *     "security"       = @Inject("security.context"),
      *     "request"        = @Inject("request"),
      *     "templating"     = @Inject("templating"),
-     *     "homeService"    = @Inject("claroline.common.home_service")
+     *     "homeService"    = @Inject("claroline.common.home_service"),
+     *     "router"         = @Inject("router"),
      * })
      */
-    public function __construct(HomeManager $manager, Request $request, $security, $templating, $homeService)
+    public function __construct(HomeManager $manager, Request $request, $security, $templating, $homeService, $router)
     {
         $this->manager = $manager;
         $this->request = $request;
         $this->security = $security;
         $this->templating = $templating;
         $this->homeService = $homeService;
+        $this->router = $router;
     }
 
     /**
@@ -87,7 +92,7 @@ class HomeController
      */
     public function homeAction($type)
     {
-        $response = $this->render(
+        /*$response = $this->render(
             'ClarolineCoreBundle:Home:home.html.twig',
             array(
                 'region' => $this->renderRegions($this->manager->getRegionContents()),
@@ -98,9 +103,38 @@ class HomeController
         $response->headers->addCacheControlDirective('max-age', 0);
         $response->headers->addCacheControlDirective('must-revalidate', true);
         $response->headers->addCacheControlDirective('no-store', true);
-        $response->headers->addCacheControlDirective('expires', '-1');
-
-        return $response;
+        $response->headers->addCacheControlDirective('expires', '-1');*/
+        return $this->redirect($this->generateUrl('claro_desktop_open_tool', array('toolName' => 'home')));
+        /*return $response;*/
+    }
+    
+     /**
+     * Generates a URL from the given parameters.
+     *
+     * @param string         $route         The name of the route
+     * @param mixed          $parameters    An array of parameters
+     * @param Boolean|string $referenceType The type of reference (one of the constants in UrlGeneratorInterface)
+     *
+     * @return string The generated URL
+     *
+     * @see UrlGeneratorInterface
+     */
+    public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    {
+        return $this->router->generate($route, $parameters, $referenceType);
+    }
+    
+     /**
+     * Returns a RedirectResponse to the given URL.
+     *
+     * @param string  $url    The URL to redirect to
+     * @param integer $status The status code to use for the Response
+     *
+     * @return RedirectResponse
+     */
+    public function redirect($url, $status = 302)
+    {
+        return new RedirectResponse($url, $status);
     }
 
     /**
