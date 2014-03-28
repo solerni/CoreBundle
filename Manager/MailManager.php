@@ -138,7 +138,8 @@ class MailManager
 
             $layout = $this->contentManager->getTranslatedContent(array('type' => 'claro_mail_layout'));
 
-            $fromEmail = ($from === null) ? $this->ch->getParameter('support_email') : $from->getMail();
+            //$fromEmail = ($from === null) ? $this->ch->getParameter('support_email') : $from->getMail();
+            $replyToEmail = ($from === null) ? null : $from->getMail();
             $locale = count($users) === 1 ? $users[0]->getLocale() : $this->ch->getParameter('locale_language');
 
             if (!$locale) {
@@ -160,8 +161,12 @@ class MailManager
 
             $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
-                ->setFrom($fromEmail)
+                ->setReplayTo($replyToEmail)
                 ->setBody($body, 'text/html');
+
+            if($replyToEmail !== null){
+                $message->setFrom($this->ch->getParameter('support_email'));
+            }
 
             if (count($to) > 1) {
                 $message->setCc($to);
