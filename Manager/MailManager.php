@@ -161,7 +161,7 @@ class MailManager
 
             $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
-                ->setReplayTo($replyToEmail)
+                ->setReplyTo($replyToEmail)
                 ->setBody($body, 'text/html');
 
             if($replyToEmail !== null){
