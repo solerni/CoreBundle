@@ -161,11 +161,11 @@ class MailManager
 
             $message = \Swift_Message::newInstance()
                 ->setSubject($subject)
-                ->setReplyTo($replyToEmail)
+                ->setFrom($this->ch->getParameter('support_email'))
                 ->setBody($body, 'text/html');
 
             if($replyToEmail !== null){
-                $message->setFrom($this->ch->getParameter('support_email'));
+                $message->setReplyTo($replyToEmail);
             }
 
             if (count($to) > 1) {
