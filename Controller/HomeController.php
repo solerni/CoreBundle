@@ -36,6 +36,7 @@ class HomeController
     private $security;
     private $templating;
     private $homeService;
+    private $router;
 
     /**
      * @InjectParams({
