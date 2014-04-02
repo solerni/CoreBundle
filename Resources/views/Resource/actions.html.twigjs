@@ -1,11 +1,17 @@
 {% twig_js name="ResourceManagerActions" %}
 {% if isPickerMode == false %}
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav slrn-resource-nav__inner">
+        <li class="slrn-resource-nav__btn">
+            <a title="{{ 'add_file_tooltip'|trans({}, 'platform') }}" class="{% if isAddAllowed == false %}disabled{% else %}open-picker{% endif %} btn btn-primary">
+               {#<i class="icon-plus"></i>#}
+               {{ 'add_file'|trans({}, 'platform') }}
+           </a>
+        </li>
         {% if resourceTypes|length > 0 %}
-            <li class="dropdown">
-                <a class="dropdown-toggle{% if isCreateAllowed == false %} disabled{% endif %}" data-toggle="dropdown">
-                    <i class="icon-edit"></i>
-                    {{ 'create'|trans({}, 'platform') }}
+            <li class="slrn-resource-nav__btn dropdown">
+                <a class="dropdown-toggle{% if isCreateAllowed == false %} disabled{% endif %} btn btn-primary" data-toggle="dropdown" title="{{ 'add_new_tooltip'|trans({}, 'platform') }}">
+                    {#<i class="icon-edit"></i>#}
+                    {{ 'new'|trans({}, 'platform') }}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu create">
@@ -16,13 +22,7 @@
             </li>
         {% endif %}
         <li>
-            <a class="{% if isAddAllowed == false %}disabled{% else %}open-picker{% endif %}">
-               <i class="icon-plus"></i>
-               {{ 'add'|trans({}, 'platform') }}
-           </a>
-        </li>
-        <li>
-            <a class="cut disabled"  data-toggle="tooltip" data-placement="bottom" title="{{ 'cut'|trans({}, 'platform') }}">
+            <a class="cut disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'cut'|trans({}, 'platform') }}">
                 <i class="icon-cut"></i>
             </a>
         </li>
@@ -46,7 +46,8 @@
                 <i class="icon-download-alt"></i>
             </a>
         </li>
-        <li class="dropdown">
+        {# Commented By Solerni #}
+        {#<li class="dropdown">
             <a class="dropdown-toggle zoom{% if isSearchMode == true %} disabled{% endif %}" data-toggle="dropdown">
                 <i class="icon-zoom-in"></i>
                 <span class="caret"></span>
@@ -59,7 +60,7 @@
                 <li{% if resourceZoom == 'zoom150' %} class="active"{% endif %}><a id='zoom150'>150%</a></li>
                 <li{% if resourceZoom == 'zoom200' %} class="active"{% endif %}><a id='zoom200'>200%</a></li>
             </ul>
-        </li>
+        </li>#}
     </ul>
 {% else %}
     <ul class='nav navbar-nav'>
@@ -71,8 +72,8 @@
         </li>
     </ul>
 {% endif %}
-
-<form class="navbar-form pull-right">
+{# Commented By Solerni #}
+{#<form class="navbar-form pull-right">
     <div class="input-group"  style="width: 250px;">
         <input class="name form-control" type="text" placeholder="{{ 'search'|trans({}, 'platform') }}" value="{{ searchedName }}">
         <span class="input-group-btn">
@@ -82,4 +83,4 @@
             <button class="config-search-panel btn btn-default" type="button"><i class="icon-cog"></i></button>
         </span>
    </div>
-</form>
+</form>#}
