@@ -21,29 +21,26 @@
                 </ul>
             </li>
         {% endif %}
-        <li>
-            <a class="cut disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'cut'|trans({}, 'platform') }}">
-                <i class="icon-cut"></i>
+    </ul>
+    <ul class="nav navbar-nav slrn-resource-nav__inner slrn-resource-tools">
+        <li class="slrn-action-btn-wrapper">
+            <a class="slrn-action-btn cut disabled" data-toggle="tooltip" data-placement="top" title="{{ 'cut'|trans({}, 'platform') }}">
             </a>
         </li>
-        <li>
-            <a class="copy disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'copy'|trans({}, 'platform') }}">
-                <i class="icon-copy"></i>
+        <li class="slrn-action-btn-wrapper">
+            <a class="slrn-action-btn copy disabled" data-toggle="tooltip" data-placement="top" title="{{ 'copy'|trans({}, 'platform') }}">
             </a>
         </li>
-        <li>
-           <a class="paste{% if isPasteAllowed == false %} disabled{% endif %}" data-toggle="tooltip" data-placement="bottom" title="{{ 'paste'|trans({}, 'platform') }}">
-                <i class="icon-paste"></i>
+        <li class="slrn-action-btn-wrapper">
+           <a class="slrn-action-btn paste{% if isPasteAllowed == false %} disabled{% endif %}" data-toggle="tooltip" data-placement="top" title="{{ 'paste'|trans({}, 'platform') }}">
             </a>
         </li>
-        <li>
-            <a class="delete disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'delete'|trans({}, 'platform') }}">
-                <i class="icon-trash"></i>
+        <li class="slrn-action-btn-wrapper">
+            <a class="slrn-action-btn delete disabled" data-toggle="tooltip" data-placement="top" title="{{ 'delete'|trans({}, 'platform') }}">
             </a>
         </li>
-        <li>
-            <a class="download disabled" data-toggle="tooltip" data-placement="bottom" title="{{ 'download'|trans({}, 'platform') }}">
-                <i class="icon-download-alt"></i>
+        <li class="slrn-action-btn-wrapper">
+            <a class="slrn-action-btn download disabled" data-toggle="tooltip" data-placement="top" title="{{ 'download'|trans({}, 'platform') }}">
             </a>
         </li>
         {# Commented By Solerni #}
