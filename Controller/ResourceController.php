@@ -429,6 +429,7 @@ class ResourceController
     public function openDirectoryAction(ResourceNode $node = null)
     {
         $user = $this->sc->getToken()->getUser();
+        $userPersonalWorkspaceId = $user->getPersonalWorkspace()->getId();
         $path = array();
         $creatableTypes = array();
         $currentRoles = $this->roleManager->getStringRolesFromToken($this->sc->getToken());
@@ -460,7 +461,7 @@ class ResourceController
             $adminTypes = [];
 
             if ($this->resourceManager->isWorkspaceOwnerOf($node, $this->sc->getToken())) {
-                $resourceTypes = $this->resourceManager->getAllResourceTypes();
+               $resourceTypes = $this->resourceManager->getAllResourceTypes();
 
                 foreach ($resourceTypes as $resourceType) {
                     $adminTypes[$resourceType->getName()] = $this->translator
@@ -481,6 +482,23 @@ class ResourceController
             $creatableTypes = array_merge($creatableTypes, $adminTypes);
             $this->dispatcher->dispatch('log', 'Log\LogResourceRead', array($node));
         }
+        
+        /*
+         * We will only authorize certains types of resources
+         * in personal workspace
+         */
+        $personalWorkspaceAuthorized = array(
+            'file' => '', 
+            'directory' => '',
+            'text'=> '',
+            'resource_shortcut' => ''
+        );
+        
+        if ( $userPersonalWorkspaceId == $workspaceId ) {
+           $creatableTypes = array_intersect_key( $creatableTypes, $personalWorkspaceAuthorized );
+        }
+        
+        
 
         $jsonResponse = new JsonResponse(
             array(
@@ -492,6 +510,8 @@ class ResourceController
                 'is_root' => $isRoot
             )
         );
+        
+        
 
         $jsonResponse->headers->set('Cache-Control', 'no-cache, no-store, must-revalidate');
         $jsonResponse->headers->add(array('Expires' => '-1'));
