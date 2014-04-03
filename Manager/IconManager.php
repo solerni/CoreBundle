@@ -220,7 +220,7 @@ class IconManager
         $thumbnailPath = null;
         if ($baseMime === 'video') {
             try {
-                $thumbnailPath = $this->creator->fromVideo($filePath, $newPath, 100, 100);
+                $thumbnailPath = $this->creator->fromVideo($filePath, $newPath, 120, 85);
             } catch (\Exception $e) {
                 $thumbnailPath = null;
                 //error handling ? $thumbnailPath = null
@@ -229,7 +229,7 @@ class IconManager
 
         if ($baseMime === 'image') {
             try {
-                $thumbnailPath = $this->creator->fromImage($filePath, $newPath, 100, 100);
+                $thumbnailPath = $this->creator->fromImage($filePath, $newPath, 120, 85);
             } catch (\Exception $e) {
                 $thumbnailPath = null;
                 //error handling ? $thumbnailPath = null

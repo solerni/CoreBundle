@@ -37,6 +37,7 @@
     <div class="col-xs-9 col-md-9 slrn-resource-manager-main">
         <div id="data-attributes" data-max-post-size="{{ maxPostSize }}"></div>
         <div class="panel-heading">
+            <a class="slrn-read-faq pink_link" href="{{ path( 'solerni_static_page', { 'name': 'cms_faq' } ) }}">{{ 'read_faq'|trans({}, 'platform') }}</a>
             <h3 class="panel-title slrn-panel-title">
                 {% if app.user.getPersonalWorkspace().getId() == workspace.getId() %}
                     {{ 'my_library' | trans({}, 'platform') }}
