@@ -2,8 +2,6 @@
 
 {% block title %}{{ parent() ~ ' - ' ~ "resources" | trans({}, "platform") | striptags | raw }}{% endblock %}
 
-{% block bodyClasses %}{{ parent() }} body-resource-manager{% endblock %}
-
 {% block breadcrumb %}
     {{
         macros.workspaceBreadcrumbs(
@@ -18,35 +16,9 @@
     }}
 {% endblock %}
 {% block section_content %}
-        {% if app.user.getPersonalWorkspace().getId() != workspace.getId() %}
-            <div class="col-xs-3 col-md-3">
-                {# MOOC  WIDGET #}
-                {% render controller(
-                    'OrangeThemeBundle:Solerni:getWorkspacePresentationWidget',
-                    { 'workspaceId': workspace.getId(), 'renderProgression': false  }
-                ) %}
-            </div>
-         {% else %}
-            {# OR PROFILE WIDGET #}
-            {% render controller(
-                'OrangeThemeBundle:Solerni:getDesktopAsideBlockWidget',
-                { 'renderingContext': 'my_library' }
-            ) %}       
-         {% endif %}
-    </div>
-    <div class="col-xs-9 col-md-9 slrn-resource-manager-main">
-        <div id="data-attributes" data-max-post-size="{{ maxPostSize }}"></div>
-        <div class="panel-heading">
-            <a class="slrn-read-faq pink_link" href="{{ path( 'solerni_static_page', { 'name': 'cms_faq' } ) }}">{{ 'read_faq'|trans({}, 'platform') }}</a>
-            <h3 class="panel-title slrn-panel-title">
-                {% if app.user.getPersonalWorkspace().getId() == workspace.getId() %}
-                    {{ 'my_library' | trans({}, 'platform') }}
-                {% else %}
-                    {{ 'mooc_resources' | trans({}, 'platform') }}
-                {% endif %}    
-                <span></span>
-            </h3>
-        </div>
+    <div id="data-attributes" data-max-post-size="{{ maxPostSize }}"></div>
+    <div class="panel-heading">
+        <h3 class="panel-title">{{ 'resources' | trans({}, 'platform') }}<span></span></h3>
     </div>
 {% endblock %}
 {% block javascripts %}
@@ -56,7 +28,7 @@
             Claroline.ResourceManager.initialize({
                 "directoryId": {{ directoryId }},
                 "directoryHistory": {{ jsonPath|raw }},
-                "parentElement": $('.slrn-resource-manager-main'),
+                "parentElement": $('div.section-content .panel'),
                 "isPickerMultiSelectAllowed": true,
                 "isWorkspace": true,
                 "appPath": "{{ app.request.getBaseUrl() }}",
