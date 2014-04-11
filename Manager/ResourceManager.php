@@ -200,13 +200,15 @@ class ResourceManager
             $parent->getChildren() :
             $this->resourceNodeRepo->findBy(array('parent' => null));
         $siblingNames = array();
-
-        foreach ($sameLevelNodes as $levelNode) {
-            if ($levelNode !== $node) {
-                $siblingNames[] = $levelNode->getName();
+        
+        if ( $sameLevelNodes instanceof Traversable ) {
+            foreach ($sameLevelNodes as $levelNode) {
+                if ($levelNode !== $node) {
+                    $siblingNames[] = $levelNode->getName();
+                }
             }
         }
-
+    
         if (!in_array($candidateName, $siblingNames)) {
             return $candidateName;
         }
