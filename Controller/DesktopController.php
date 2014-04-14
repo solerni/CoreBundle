@@ -322,7 +322,17 @@ class DesktopController extends Controller
     public function openAction(User $user)
     {
         $openedTool = $this->toolManager->getDisplayedDesktopOrderedTools($user);
-
+        
+        $isFirstVisit = false;
+        if($user->isFirstVisit()){
+            $isFirstVisit = true;
+            $user->setFirstVisit(false);
+            $this->em->persist($user);
+            $this->em->flush();
+        }        
+        
+        $this->get('session')->set('isFirstVisit', $isFirstVisit);
+               
         $route = $this->router->generate(
             'claro_desktop_open_tool',
             array('toolName' => $openedTool[0]->getName())

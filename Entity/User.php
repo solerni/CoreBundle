@@ -36,7 +36,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class User extends AbstractRoleSubject implements Serializable, AdvancedUserInterface, EquatableInterface, OrderableInterface
 {
     /**
-     * @var integer
+     * @var integer 
      *
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -267,6 +267,13 @@ class User extends AbstractRoleSubject implements Serializable, AdvancedUserInte
      * @ORM\Column(name="has_accepted_com_terms", type="boolean", nullable=true)
      */
     protected $hasAcceptedComTerms = false;
+    
+
+    /**
+     * @ORM\Column(name="is_first_visit", type="boolean")
+     */
+    protected $isFirstVisit = true;
+    
     
     public function __construct()
     {
@@ -879,4 +886,16 @@ class User extends AbstractRoleSubject implements Serializable, AdvancedUserInte
     {
         $this->hasAcceptedComTerms = $boolean;
     }
+
+    public function isFirstVisit()
+    {
+        return $this->isFirstVisit;
+    }
+    
+    public function setFirstVisit($boolean)
+    {
+        $this->isFirstVisit = $boolean;
+    }
+    
+    
 }
