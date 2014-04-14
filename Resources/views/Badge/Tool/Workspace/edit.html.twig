@@ -108,7 +108,10 @@
                             {
                                 'proximity' : 1,
                                 'routeName': 'claro_workspace_tool_badges_edit',
-                                'routeParams': {'slug': badge.slug}
+                                'routeParams': {
+                                    'workspaceId': workspace.id,
+                                    'slug': badge.slug
+                                }
                             }
                         )
                     }}
